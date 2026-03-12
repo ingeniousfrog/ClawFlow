@@ -87,13 +87,13 @@ nanoclaw init
 ### 启动
 
 ```bash
-nanoclaw serve
+nanoclaw serve -v
 ```
 
 常用命令：
 
 ```bash
-nanoclaw status -v
+nanoclaw status
 nanoclaw doctor
 make test
 ```

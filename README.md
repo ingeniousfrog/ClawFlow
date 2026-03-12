@@ -91,13 +91,13 @@ This creates local user configuration under `~/.nanoclaw/`.
 ### Run
 
 ```bash
-nanoclaw serve
+nanoclaw serve -v
 ```
 
 Useful commands:
 
 ```bash
-nanoclaw status -v
+nanoclaw status
 nanoclaw doctor
 make test
 ```
