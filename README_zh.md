@@ -93,7 +93,7 @@ nanoclaw serve
 常用命令：
 
 ```bash
-nanoclaw status
+nanoclaw status -v
 nanoclaw doctor
 make test
 ```
@@ -124,7 +124,6 @@ make test
 | `assets/` | 可维护数据资源 |
 | `config.example.json` | 配置示例 |
 | `ARCHITECTURE.md` | 架构主文档 |
-| `todo.md` | 路线图与已完成里程碑 |
 | `BACKLOG.md` | hardening 与延后事项 |
 
 ## 文档
@@ -132,28 +131,8 @@ make test
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [todo.md](todo.md)
 - [BACKLOG.md](BACKLOG.md)
-- [OPEN_SOURCE_CHECKLIST.md](OPEN_SOURCE_CHECKLIST.md)
-- [comparison.md](comparison.md)
-- [comparison_baseline_zh.md](comparison_baseline_zh.md)
-- [COMPARISON_zh.md](COMPARISON_zh.md)
 - [FEISHU.md](FEISHU.md)
 - [FEISHU_zh.md](FEISHU_zh.md)
-
-## 开源发布注意事项
-
-如果你准备公开这个仓库，下面这些内容不要放进公开仓库：
-
-- `~/.nanoclaw/config.json`
-- 本地数据库，比如 `*.db`、`*.sqlite`
-- 日志文件
-- 本地临时笔记和 scratch 文档
-- 私有 extension bundle 或 publisher secret
-
-另外，发布前建议清理：
-
-- `__pycache__/`、`*.egg-info/` 这类生成文件
-- 文档或脚本里的本机绝对路径
-- 已经过时、和当前代码不一致的内部说明文档
 
 ## 署名说明
 

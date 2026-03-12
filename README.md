@@ -97,7 +97,7 @@ nanoclaw serve
 Useful commands:
 
 ```bash
-nanoclaw status
+nanoclaw status -v
 nanoclaw doctor
 make test
 ```
@@ -128,36 +128,14 @@ See:
 | `assets/` | maintained data assets |
 | `config.example.json` | example config |
 | `ARCHITECTURE.md` | architecture source of truth |
-| `todo.md` | roadmap and completed milestones |
 | `BACKLOG.md` | hardening and deferred work |
 
 ## Documentation
 
 - [ARCHITECTURE.md](ARCHITECTURE.md)
-- [todo.md](todo.md)
 - [BACKLOG.md](BACKLOG.md)
-- [OPEN_SOURCE_CHECKLIST.md](OPEN_SOURCE_CHECKLIST.md)
-- [comparison.md](comparison.md)
-- [comparison_baseline_zh.md](comparison_baseline_zh.md)
-- [COMPARISON_zh.md](COMPARISON_zh.md)
 - [FEISHU.md](FEISHU.md)
 - [FEISHU_zh.md](FEISHU_zh.md)
-
-## Open Source Notes
-
-If you publish this repository, keep these **out** of the public repo:
-
-- `~/.nanoclaw/config.json`
-- local databases such as `*.db` or `*.sqlite`
-- logs
-- local scratch notes
-- private extension bundles or publisher secrets
-
-Also review and clean:
-
-- generated files such as `__pycache__/` and `*.egg-info/`
-- local absolute paths in personal notes or helper scripts
-- outdated internal docs that no longer match the current code
 
 ## Attribution
 
