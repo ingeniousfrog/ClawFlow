@@ -1,0 +1,12 @@
+{
+  "name": "get_weather",
+  "kind": "skill",
+  "module": "weather",
+  "toolNames": ["get_weather"],
+  "summary": "Look up current weather for a city.",
+  "entryPoints": ["weather in Tokyo", "temperature in Shanghai"],
+  "triggers": ["weather", "temperature", "rain", "forecast"],
+  "dependencies": ["wttr.in"],
+  "riskLevel": "low",
+  "enabled": true
+}

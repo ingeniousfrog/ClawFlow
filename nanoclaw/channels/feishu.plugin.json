@@ -1,0 +1,43 @@
+{
+  "name": "feishu_channel",
+  "kind": "channel",
+  "module": "feishu",
+  "provides": ["feishu"],
+  "summary": "Feishu webhook channel for incoming events and targeted proactive delivery.",
+  "entryPoints": ["channels.feishu.enabled=true"],
+  "dependencies": ["aiohttp webhook runtime"],
+  "metadata": {
+    "contract": {
+      "label": "Feishu",
+      "deliveryMode": "webhook",
+      "managed": true,
+      "supportsIncoming": true,
+      "supportsProactive": true,
+      "supportsTargetedProactive": true,
+      "supportsConfirmation": true
+    },
+    "runtime": {
+      "configName": "feishu",
+      "factoryPath": "nanoclaw.channels.feishu:FeishuChannel",
+      "requiredFields": ["app_id", "app_secret"],
+      "missingReason": "app credentials missing",
+      "readyReason": "app credentials configured",
+      "startingDetail": "starting webhook runtime",
+      "runningDetail": "webhook runtime active"
+    },
+    "routing": {
+      "targetMode": "default_field",
+      "targetField": "default_chat_id",
+      "targetMissingReason": "defaultChatId missing",
+      "targetReadyDetail": "default Feishu chat configured",
+      "priorities": {
+        "default_proactive": 2,
+        "heartbeat": 1,
+        "runtime_alert": 2,
+        "runtime_alert_escalation": 2
+      }
+    }
+  },
+  "riskLevel": "medium",
+  "enabled": true
+}

@@ -1,0 +1,129 @@
+{
+  "providers": {
+    "openrouter": {
+      "apiKey": "sk-or-YOUR_API_KEY_HERE"
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": "anthropic/claude-sonnet-4"
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "token": "YOUR_BOT_TOKEN",
+      "allowFrom": ["YOUR_USER_ID"]
+    },
+    "feishu": {
+      "enabled": false,
+      "appId": "cli_xxx",
+      "appSecret": "xxx",
+      "verifyToken": "xxx",
+      "encryptKey": "",
+      "webhookHost": "0.0.0.0",
+      "webhookPort": 15097,
+      "webhookPath": "/feishu/events",
+      "allowFrom": [],
+      "defaultChatId": ""
+    },
+    "extensions": {
+      "my_channel": {
+        "enabled": false
+      }
+    }
+  },
+  "tools": {
+    "webSearch": {
+      "provider": "rss",
+      "apiKey": "",
+      "rssSourcesPath": "assets/rss-sources.json",
+      "preferMainland": true,
+      "mainlandOnly": false,
+      "rssMaxFeeds": 12,
+      "rssItemsPerFeed": 20,
+      "rssTimeout": 10,
+      "rssConcurrency": 8,
+      "rssRetries": 1,
+      "allowedHosts": [],
+      "blockedHosts": [],
+      "providerConfigs": {
+        "searxng": {
+          "baseUrl": "https://search.example.com",
+          "engines": ["google", "news"]
+        },
+        "my_provider": {}
+      }
+    },
+    "shell": {
+      "enabled": true,
+      "mode": "subprocess",
+      "backend": "portable",
+      "containerImage": "",
+      "timeout": 30,
+      "maxMemoryMb": 512,
+      "maxFileSizeKb": 8192,
+      "isolateHome": true,
+      "confirmDangerous": true
+    },
+    "secretIsolation": {
+      "allowEnvironmentFallback": false,
+      "auditAccess": true
+    }
+  },
+  "memory": {
+    "maxHistory": 50,
+    "semanticSearch": false
+  },
+  "agent": {
+    "maxIterations": 15,
+    "maxTokensPerSession": 50000,
+    "sessionTimeout": 300,
+    "modelRouting": {
+      "enabled": true,
+      "dailyModel": "gpt-5.2",
+      "paperModel": "gpt-5.2",
+      "generalModel": "qwen3-max-2026-01-23",
+      "qwenEnableSearch": true,
+      "qwenSearchOptions": {}
+    },
+    "workflowRolePolicy": {
+      "retryBudgets": {
+        "executor": 2,
+        "critic": 1,
+        "summarizer": 1
+      },
+      "turnBudgets": {
+        "planner": 1,
+        "router": 1,
+        "executor": 2,
+        "critic": 2,
+        "summarizer": 2
+      },
+      "enableGraphFanout": true
+    }
+  },
+  "dashboard": {
+    "enabled": true,
+    "port": 18790
+  },
+  "extensions": {
+    "requireInstallReceipt": true,
+    "requireSignedBundles": false,
+    "maxRiskLevel": "medium",
+    "trustedPublishers": {
+      "acme": {
+        "activeKeyId": "2026-q1",
+        "keys": {
+          "2026-q1": "replace-me"
+        },
+        "revokedKeyIds": []
+      }
+    },
+    "revokedPublishers": [],
+    "registryUrl": "",
+    "runtimeIsolationMode": "subprocess",
+    "runtimeIsolatedKinds": ["search_provider", "channel"],
+    "isolatedTimeoutSeconds": 15
+  }
+}

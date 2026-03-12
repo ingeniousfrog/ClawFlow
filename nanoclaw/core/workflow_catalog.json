@@ -1,0 +1,102 @@
+[
+  {
+    "name": "default_chat_loop",
+    "summary": "ReAct-style default workflow with dynamic tool injection.",
+    "entryPoints": ["normal chat requests", "file tasks", "repo inspection"],
+    "capabilities": [
+      "capability_list",
+      "web_search",
+      "web_fetch",
+      "shell_exec",
+      "file_read",
+      "file_write",
+      "file_list",
+      "memory_save",
+      "memory_search",
+      "spawn_task"
+    ],
+    "notes": "The agent selects only the most relevant tools for the current message."
+  },
+  {
+    "name": "grounded_current_info",
+    "summary": "Time-sensitive requests gather live evidence through tools or a web-enabled model before answering.",
+    "entryPoints": ["latest", "news", "trend", "today", "recent papers"],
+    "capabilities": ["web_search", "hotspot_brief", "daily_digest", "paper_search"],
+    "notes": "Broad live-search requests may route directly to a web-enabled model; structured workflows still prefer local tools.",
+    "structuredMatchTerms": [
+      "hotspot",
+      "trending",
+      "trend",
+      "digest",
+      "brief",
+      "daily",
+      "daily digest",
+      "morning brief",
+      "paper",
+      "papers",
+      "arxiv",
+      "preprint",
+      "热点",
+      "简报",
+      "趋势",
+      "日报",
+      "日更",
+      "今日要闻",
+      "论文",
+      "文献",
+      "期刊"
+    ]
+  },
+  {
+    "name": "web_model_grounding",
+    "summary": "Broad current-info questions can route directly to the configured web-enabled model.",
+    "entryPoints": ["latest company update", "current situation", "need web search"],
+    "capabilities": ["qwen web-enabled search"],
+    "notes": "Used only when the request does not clearly require structured local workflows such as paper, digest, or article flows."
+  },
+  {
+    "name": "feishu_paper_template",
+    "summary": "Feishu `/paper ...` command that forces a one-shot `paper_search` flow.",
+    "entryPoints": ["/paper <topic> [--days N] [--max N] [--providers LIST] [--sort MODE]"],
+    "capabilities": ["paper_search"],
+    "notes": "The template rewrites the request to reduce tool-argument trial and error."
+  },
+  {
+    "name": "wechat_article_flow",
+    "summary": "Evidence-driven WeChat article assistance with article-role stages from planning to final polish.",
+    "entryPoints": ["WeChat article draft", "article outline", "fact-check this article"],
+    "capabilities": ["wechat_article_assist", "web_search", "web_fetch", "paper_search"],
+    "notes": "The workflow returns direct output from `wechat_article_assist` when possible, but the article bundle now also exposes planner/researcher/drafter/critic/editor role stages.",
+    "structuredMatchTerms": [
+      "公众号",
+      "微信文章",
+      "文章初稿",
+      "文章大纲",
+      "事实核查",
+      "润色",
+      "wechat article"
+    ]
+  },
+  {
+    "name": "scheduled_job_flow",
+    "summary": "Run a saved prompt on a schedule and push the result proactively.",
+    "entryPoints": ["nanoclaw cron add", "scheduled daily brief", "scheduled monitoring"],
+    "capabilities": ["daily_digest", "hotspot_brief", "paper_search", "spawn_task"],
+    "notes": "The scheduler routes the saved message through the normal agent loop."
+  },
+  {
+    "name": "heartbeat_checklist",
+    "summary": "Run a protected HEARTBEAT.md checklist and notify only when action is needed.",
+    "entryPoints": ["~/.nanoclaw/workspace/HEARTBEAT.md", "heartbeat.enabled=true"],
+    "capabilities": [
+      "web_search",
+      "web_fetch",
+      "daily_digest",
+      "hotspot_brief",
+      "paper_search",
+      "file_read",
+      "memory_search"
+    ],
+    "notes": "Heartbeat uses the normal agent loop, but suppresses proactive output when the result is HEARTBEAT_OK."
+  }
+]

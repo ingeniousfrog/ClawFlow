@@ -1,0 +1,19 @@
+{
+  "name": "brave_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["brave"],
+  "summary": "Brave-backed web search provider with explicit secret and host-policy checks.",
+  "entryPoints": ["tools.webSearch.provider=brave"],
+  "dependencies": ["BRAVE_SEARCH_API_KEY or config webSearch.apiKey"],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_brave_provider",
+      "autoHandlerPath": "nanoclaw.tools.search_providers:_brave_only_provider",
+      "autoPriority": 20,
+      "secretCapability": "web_search.brave_api_key"
+    }
+  },
+  "riskLevel": "medium",
+  "enabled": true
+}

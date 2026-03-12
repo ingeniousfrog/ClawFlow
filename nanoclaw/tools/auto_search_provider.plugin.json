@@ -1,0 +1,16 @@
+{
+  "name": "auto_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["auto"],
+  "summary": "Provider-routing search mode that picks the best available built-in provider.",
+  "entryPoints": ["tools.webSearch.provider=auto"],
+  "dependencies": ["rss or configured web provider"],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_auto_provider"
+    }
+  },
+  "riskLevel": "low",
+  "enabled": true
+}

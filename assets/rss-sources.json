@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "updated_at": "2026-03-03",
+  "description": "Canonical RSS/Atom source list for nanoClaw.",
+  "origin": "Prism feed_sources.dart baseline + academic additions for AI and quantum.",
+  "channels": [
+    {
+      "id": "ai",
+      "name": "AI",
+      "priority": "core",
+      "sources": [
+        {
+          "title": "Hacker News (AI)",
+          "url": "https://hnrss.org/newest?q=AI",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "news"]
+        },
+        {
+          "title": "Solidot",
+          "url": "https://www.solidot.org/index.rss",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["ai", "tech", "cn"]
+        },
+        {
+          "title": "V2EX",
+          "url": "https://www.v2ex.com/index.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["ai", "community", "cn"]
+        },
+        {
+          "title": "ArXiv CS.AI",
+          "url": "https://rss.arxiv.org/rss/cs.AI",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "research", "arxiv"]
+        },
+        {
+          "title": "ArXiv CS.LG",
+          "url": "https://rss.arxiv.org/rss/cs.LG",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "ml", "research", "arxiv"]
+        },
+        {
+          "title": "ArXiv CS.CL",
+          "url": "https://rss.arxiv.org/rss/cs.CL",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "nlp", "research", "arxiv"]
+        },
+        {
+          "title": "ArXiv STAT.ML",
+          "url": "https://rss.arxiv.org/rss/stat.ML",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "ml", "research", "arxiv"]
+        },
+        {
+          "title": "Hugging Face Blog",
+          "url": "https://huggingface.co/blog/feed.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["ai", "open-source", "models"]
+        },
+        {
+          "title": "Google AI Blog",
+          "url": "https://blog.google/technology/ai/rss/",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["ai", "industry"]
+        },
+        {
+          "title": "Sina Tech Breaking (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/bn/tech.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["ai", "tech", "cn", "fallback", "mainland-friendly"]
+        },
+        {
+          "title": "Sina Tech Roll (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/tech/rollnews.xml",
+          "tier": 3,
+          "format": "rss",
+          "tags": ["ai", "tech", "cn", "fallback", "mainland-friendly"]
+        },
+        {
+          "title": "ITHome (Mainland Backup)",
+          "url": "https://www.ithome.com/rss/",
+          "tier": 3,
+          "format": "rss",
+          "tags": ["ai", "tech", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "quantum_mechanics",
+      "name": "Quantum Mechanics",
+      "priority": "core",
+      "sources": [
+        {
+          "title": "ArXiv Quantum Physics (quant-ph)",
+          "url": "https://rss.arxiv.org/rss/quant-ph",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["quantum", "research", "arxiv"]
+        },
+        {
+          "title": "ArXiv Condensed Matter Quantum Gases",
+          "url": "https://rss.arxiv.org/rss/cond-mat.quant-gas",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["quantum", "research", "arxiv"]
+        },
+        {
+          "title": "ArXiv Quantum Algebra (math.QA)",
+          "url": "https://rss.arxiv.org/rss/math.QA",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["quantum", "math", "research", "arxiv"]
+        },
+        {
+          "title": "Nature Quantum Physics Topic",
+          "url": "https://www.nature.com/subjects/quantum-physics.rss",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["quantum", "journal"]
+        },
+        {
+          "title": "ScienceDaily Quantum Physics",
+          "url": "https://www.sciencedaily.com/rss/matter_energy/quantum_physics.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["quantum", "news"]
+        },
+        {
+          "title": "Quanta Magazine Quantum Physics",
+          "url": "https://www.quantamagazine.org/tag/quantum-physics/feed/",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["quantum", "analysis"]
+        },
+        {
+          "title": "Quantum Journal",
+          "url": "https://quantum-journal.org/feed/",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["quantum", "journal", "research"]
+        },
+        {
+          "title": "APS Physics",
+          "url": "http://feeds.aps.org/rss/recent/physics.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["physics", "quantum", "research"]
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "name": "Technology",
+      "priority": "standard",
+      "sources": [
+        {
+          "title": "TechCrunch",
+          "url": "https://techcrunch.com/feed/",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["tech"]
+        },
+        {
+          "title": "The Verge",
+          "url": "https://www.theverge.com/rss/index.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["tech"]
+        },
+        {
+          "title": "Ars Technica",
+          "url": "https://feeds.arstechnica.com/arstechnica/index",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["tech"]
+        },
+        {
+          "title": "SSPAI",
+          "url": "https://sspai.com/feed",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["tech", "cn"]
+        },
+        {
+          "title": "36Kr",
+          "url": "https://36kr.com/feed",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["tech", "cn"]
+        }
+      ]
+    },
+    {
+      "id": "investing",
+      "name": "Investing",
+      "priority": "standard",
+      "sources": [
+        {
+          "title": "WSJ Business",
+          "url": "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["business", "investing"]
+        },
+        {
+          "title": "FT Chinese Markets",
+          "url": "https://www.ftchinese.com/rss/markets",
+          "tier": 3,
+          "format": "rss",
+          "tags": ["markets", "cn"]
+        },
+        {
+          "title": "Xinhua Fortune (Mainland Backup)",
+          "url": "https://www.xinhuanet.com/fortune/news_fortune.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["investing", "business", "cn", "fallback", "mainland-friendly"]
+        },
+        {
+          "title": "Sina Finance Breaking (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/bn/finance.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["investing", "finance", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "priority": "standard",
+      "sources": [
+        {
+          "title": "FT Chinese News",
+          "url": "https://www.ftchinese.com/rss/news",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["finance", "cn"]
+        },
+        {
+          "title": "Huxiu Discovery",
+          "url": "https://www.huxiu.com/rss/0.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["finance", "cn"]
+        },
+        {
+          "title": "CoinDesk",
+          "url": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["finance", "crypto"]
+        },
+        {
+          "title": "Sina Finance Breaking (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/bn/finance.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["finance", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "real_estate",
+      "name": "Real Estate",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "Realtor News",
+          "url": "https://www.realtor.com/news/feed/",
+          "tier": 3,
+          "format": "rss",
+          "tags": ["real-estate"]
+        },
+        {
+          "title": "NYT Real Estate",
+          "url": "https://rss.nytimes.com/services/xml/rss/nyt/RealEstate.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["real-estate"]
+        },
+        {
+          "title": "Sina House Openings (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/bjhouse/scan/kaipan.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["real-estate", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "military",
+      "name": "Military",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "Defense One",
+          "url": "https://www.defenseone.com/rss/all/",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["military"]
+        },
+        {
+          "title": "The War Zone",
+          "url": "https://www.twz.com/feed",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["military"]
+        },
+        {
+          "title": "Military.com",
+          "url": "https://www.military.com/rss-feeds/content?channel=news&keyword=headlines&type=news",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["military"]
+        }
+      ]
+    },
+    {
+      "id": "politics",
+      "name": "Politics",
+      "priority": "standard",
+      "sources": [
+        {
+          "title": "BBC World",
+          "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["politics", "world"]
+        },
+        {
+          "title": "WSJ World",
+          "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["politics", "world"]
+        },
+        {
+          "title": "Xinhua World (Mainland Backup)",
+          "url": "https://www.xinhuanet.com/world/news_world.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["politics", "world", "cn", "fallback", "mainland-friendly"]
+        },
+        {
+          "title": "Sina World Focus (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/news/world/focus15.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["politics", "world", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "geography",
+      "name": "Geography",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "ScienceDaily Geography",
+          "url": "https://www.sciencedaily.com/rss/earth_climate/geography.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["geography", "science"]
+        }
+      ]
+    },
+    {
+      "id": "astronomy",
+      "name": "Astronomy",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "NASA Breaking News",
+          "url": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["astronomy", "space"]
+        },
+        {
+          "title": "Space.com",
+          "url": "https://www.space.com/feeds/all",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["astronomy", "space"]
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "name": "Health",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "WHO News",
+          "url": "https://www.who.int/rss-feeds/news-english.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["health"]
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "EdSurge",
+          "url": "https://www.edsurge.com/articles_rss",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["education"]
+        }
+      ]
+    },
+    {
+      "id": "sports",
+      "name": "Sports",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "BBC Sport",
+          "url": "https://feeds.bbci.co.uk/sport/rss.xml",
+          "tier": 1,
+          "format": "rss",
+          "tags": ["sports"]
+        },
+        {
+          "title": "ESPN NBA",
+          "url": "https://www.espn.com/espn/rss/nba/news",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["sports", "nba"]
+        },
+        {
+          "title": "Sina Sports Breaking (Mainland Backup)",
+          "url": "https://rss.sina.com.cn/bn/sports.xml",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["sports", "cn", "fallback", "mainland-friendly"]
+        },
+        {
+          "title": "China Daily Sports (Mainland Backup)",
+          "url": "https://www.chinadaily.com.cn/rss/sports_rss.xml",
+          "tier": 3,
+          "format": "rss",
+          "tags": ["sports", "cn", "fallback", "mainland-friendly"]
+        }
+      ]
+    },
+    {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "Variety",
+          "url": "https://variety.com/feed/",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["entertainment"]
+        },
+        {
+          "title": "Douban Movie Reviews",
+          "url": "https://www.douban.com/feed/review/movie",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["entertainment", "cn"]
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "Energy and Climate",
+      "priority": "optional",
+      "sources": [
+        {
+          "title": "Carbon Brief",
+          "url": "https://www.carbonbrief.org/feed",
+          "tier": 2,
+          "format": "rss",
+          "tags": ["energy", "climate"]
+        }
+      ]
+    }
+  ]
+}

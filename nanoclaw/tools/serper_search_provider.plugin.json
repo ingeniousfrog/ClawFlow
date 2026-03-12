@@ -1,0 +1,19 @@
+{
+  "name": "serper_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["serper"],
+  "summary": "Serper-backed search provider with query-plan hints and secret gating.",
+  "entryPoints": ["tools.webSearch.provider=serper"],
+  "dependencies": ["SERPER_API_KEY or config webSearch.serperApiKey"],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_serper_provider",
+      "autoHandlerPath": "nanoclaw.tools.search_providers:_serper_only_provider",
+      "autoPriority": 10,
+      "secretCapability": "web_search.serper_api_key"
+    }
+  },
+  "riskLevel": "medium",
+  "enabled": true
+}

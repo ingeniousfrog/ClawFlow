@@ -1,0 +1,16 @@
+{
+  "name": "rss_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["rss"],
+  "summary": "RSS-backed search provider with local source registry routing.",
+  "entryPoints": ["tools.webSearch.provider=rss"],
+  "dependencies": ["assets/rss-sources.json"],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_rss_provider"
+    }
+  },
+  "riskLevel": "low",
+  "enabled": true
+}

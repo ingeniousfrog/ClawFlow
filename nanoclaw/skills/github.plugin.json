@@ -1,0 +1,12 @@
+{
+  "name": "github_repo_info",
+  "kind": "skill",
+  "module": "github",
+  "toolNames": ["github_repo_info"],
+  "summary": "Fetch basic GitHub repository metadata.",
+  "entryPoints": ["GitHub repo info", "stars for owner/repo"],
+  "triggers": ["github", "repo", "repository", "pull request", "issue"],
+  "dependencies": ["api.github.com"],
+  "riskLevel": "low",
+  "enabled": true
+}

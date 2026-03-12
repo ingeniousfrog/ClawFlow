@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nanoClaw Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #0f3460;
+            --text-primary: #eaeaea;
+            --text-secondary: #a0a0a0;
+            --accent: #e94560;
+            --success: #4ecca3;
+            --warning: #ffd369;
+            --error: #e94560;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--bg-card);
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .status-online {
+            background: var(--success);
+            color: #000;
+        }
+        .status-offline {
+            background: var(--error);
+            color: #fff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--bg-card);
+        }
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--bg-card);
+        }
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-card);
+        }
+        th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-success { background: var(--success); color: #000; }
+        .badge-error { background: var(--error); color: #fff; }
+        .badge-warning { background: var(--warning); color: #000; }
+        .badge-info { background: var(--bg-card); color: var(--text-primary); }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-danger {
+            background: var(--error);
+            color: #fff;
+        }
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid var(--bg-card);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .memory-item {
+            padding: 12px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .memory-content {
+            margin-bottom: 5px;
+        }
+        .memory-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .log-entry {
+            padding: 8px 12px;
+            border-left: 3px solid var(--bg-card);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .log-entry.success { border-color: var(--success); }
+        .log-entry.error { border-color: var(--error); }
+        .log-entry.blocked { border-color: var(--warning); }
+        .log-time {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+        .scroll-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .refresh-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nanoClaw</h1>
+            <span id="status-badge" class="status-badge status-offline">Loading...</span>
+        </header>
+
+        <div class="grid">
+            <!-- Status Overview -->
+            <div class="card">
+                <h2>Status</h2>
+                <div class="stat-row">
+                    <span>Uptime</span>
+                    <span id="uptime">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Model</span>
+                    <span id="model">--</span>
+                </div>
+                <div id="channel-status-list"></div>
+                <div class="stat-row">
+                    <span>Runtime Health</span>
+                    <span id="runtime-health">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Channel Routes</span>
+                    <span id="channel-routes">--</span>
+                </div>
+            </div>
+
+            <!-- Today's Stats -->
+            <div class="card">
+                <h2>Today</h2>
+                <div class="stat-row">
+                    <span>Messages</span>
+                    <span id="today-messages">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Tool Calls</span>
+                    <span id="today-tools">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Tokens</span>
+                    <span id="today-tokens">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Errors</span>
+                    <span id="today-errors">0</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Workflow Eval</h2>
+                <div class="stat-row">
+                    <span>Good / Review / Poor</span>
+                    <span id="eval-labels">0 / 0 / 0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Avg Quality</span>
+                    <span id="eval-quality">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Avg Efficiency</span>
+                    <span id="eval-efficiency">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Feedback + / 0 / -</span>
+                    <span id="eval-feedback">0 / 0 / 0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Recent Label</span>
+                    <span id="eval-recent">--</span>
+                </div>
+            </div>
+
+            <!-- Memory Stats -->
+            <div class="card">
+                <h2>Memory</h2>
+                <div class="stat-row">
+                    <span>Total Messages</span>
+                    <span id="total-messages">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Sessions</span>
+                    <span id="total-sessions">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Memories</span>
+                    <span id="total-memories">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Cron Jobs</span>
+                    <span id="total-cron">0</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Queue</h2>
+                <div class="stat-row">
+                    <span>Ready Backlog</span>
+                    <span id="queue-ready">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Retry Backlog</span>
+                    <span id="queue-retry">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Rate Limited</span>
+                    <span id="queue-rate-limited">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Running</span>
+                    <span id="queue-running">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Dead Letter</span>
+                    <span id="queue-dead-letter">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Starved Ready</span>
+                    <span id="queue-starved">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Stale Running</span>
+                    <span id="queue-stale">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Runtime Signals</span>
+                    <span id="queue-saturation">0%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Boundary</h2>
+                <div class="stat-row">
+                    <span>Contract</span>
+                    <span id="boundary-contract">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Shell</span>
+                    <span id="boundary-shell">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Host Policy</span>
+                    <span id="boundary-hosts">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Secrets</span>
+                    <span id="boundary-secrets">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>24h Events</span>
+                    <span id="boundary-events">--</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Memories -->
+            <div class="card">
+                <h2>Memories</h2>
+                <div id="memories-list" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Cron Jobs -->
+            <div class="card">
+                <h2>Cron Jobs</h2>
+                <div class="form-group">
+                    <label>Schedule Filters</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <select id="cron-health-filter" onchange="fetchCronJobs()">
+                            <option value="all">all health</option>
+                            <option value="attention">attention</option>
+                            <option value="retrying">retrying</option>
+                            <option value="healthy">healthy</option>
+                            <option value="muted">muted</option>
+                            <option value="idle">idle</option>
+                        </select>
+                        <select id="cron-signal-filter" onchange="fetchCronJobs()">
+                            <option value="all">all signals</option>
+                            <option value="alert">alert</option>
+                            <option value="escalation">escalation</option>
+                            <option value="recovery">recovery</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="cron-list" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--bg-card);">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="cron-name" placeholder="Daily summary">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <input type="text" id="cron-message" placeholder="Give me a summary of today's news">
+                    </div>
+                    <div class="form-group">
+                        <label>Interval (seconds)</label>
+                        <input type="number" id="cron-interval" placeholder="3600">
+                    </div>
+                    <button class="btn btn-primary" onclick="addCronJob()">Add Job</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Skills -->
+            <div class="card">
+                <h2>Available Tools</h2>
+                <div id="skills-list" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Audit Log -->
+            <div class="card">
+                <h2>Recent Activity</h2>
+                <div id="audit-list" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card full-width">
+                <h2>Recent Tasks</h2>
+                <div id="tasks-list" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card full-width">
+                <h2>Workflow Recommendations</h2>
+                <div id="workflow-recommendations" class="scroll-container">
+                    <p style="color: var(--text-secondary)">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="refresh-info">Auto-refreshes every 5 seconds</p>
+    </div>
+
+    <script>
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+
+                document.getElementById('status-badge').textContent = data.status;
+                document.getElementById('status-badge').className =
+                    'status-badge status-' + data.status;
+                document.getElementById('uptime').textContent = data.uptime;
+                document.getElementById('model').textContent = data.model || '--';
+
+                const contractChannels = data.channel_contract?.channels || data.channels || {};
+                document.getElementById('channel-status-list').innerHTML =
+                    renderChannelStatusRows(contractChannels);
+                const runtimeHealth = data.runtime_health || {};
+                document.getElementById('runtime-health').textContent =
+                    `${runtimeHealth.status || 'unknown'} / `
+                    + `${runtimeHealth.base_alert_severity || 'none'} `
+                    + `(${runtimeHealth.summary || 'unknown'})`;
+                const routingPolicy = data.channel_contract?.routing_policy || {};
+                const channelSummary = data.channel_contract?.summary || {};
+                const orchestration = data.channel_contract?.orchestration || {};
+                const defaultRoute = routingPolicy.default_proactive || {};
+                const heartbeatRoute = routingPolicy.heartbeat || {};
+                const alertRoute = routingPolicy.runtime_alert || {};
+                const escalationRoute = routingPolicy.runtime_alert_escalation || {};
+                document.getElementById('channel-routes').textContent =
+                    `default ${defaultRoute.selected_channel || '-'} `
+                    + `| heartbeat ${heartbeatRoute.selected_channel || '-'} `
+                    + `| alert ${alertRoute.selected_channel || '-'} `
+                    + `| escalation ${escalationRoute.selected_channel || '-'} `
+                    + `| attention ${channelSummary.diagnostic_attention_count || 0} `
+                    + `| drift ${orchestration.drifted_count || 0}`;
+
+                // Today's stats
+                document.getElementById('today-messages').textContent =
+                    data.today?.messages || 0;
+                document.getElementById('today-tools').textContent =
+                    data.today?.tool_calls || 0;
+                document.getElementById('today-tokens').textContent =
+                    (data.today?.total_tokens || 0).toLocaleString();
+                document.getElementById('today-errors').textContent = data.today?.errors || 0;
+                const workflowEval = data.workflow_eval_today || {};
+                document.getElementById('eval-labels').textContent =
+                    `${workflowEval.good_runs || 0} / ${workflowEval.review_runs || 0} / `
+                    + `${workflowEval.poor_runs || 0}`;
+                document.getElementById('eval-quality').textContent =
+                    workflowEval.avg_quality_score || 0;
+                document.getElementById('eval-efficiency').textContent =
+                    workflowEval.avg_efficiency_score || 0;
+                document.getElementById('eval-feedback').textContent =
+                    `${workflowEval.positive_feedback || 0} / `
+                    + `${workflowEval.neutral_feedback || 0} / `
+                    + `${workflowEval.negative_feedback || 0}`;
+                const recentEval = data.recent_workflow_evaluations?.[0];
+                document.getElementById('eval-recent').textContent = recentEval
+                    ? `${recentEval.workflow_name} / ${recentEval.evaluation_label} / `
+                        + `${(recentEval.attention_reasons || [])[0] || '--'}`
+                    : '--';
+
+                // Memory stats
+                document.getElementById('total-messages').textContent = data.stats?.total_messages || 0;
+                document.getElementById('total-sessions').textContent = data.stats?.sessions || 0;
+                document.getElementById('total-memories').textContent = data.stats?.memories || 0;
+                document.getElementById('total-cron').textContent = data.stats?.cron_jobs || 0;
+
+                // Queue stats
+                document.getElementById('queue-ready').textContent = data.queue?.ready_backlog || 0;
+                document.getElementById('queue-retry').textContent = data.queue?.retry_backlog || 0;
+                document.getElementById('queue-rate-limited').textContent =
+                    data.queue?.rate_limited_backlog || 0;
+                document.getElementById('queue-running').textContent = data.queue?.running_tasks || 0;
+                document.getElementById('queue-dead-letter').textContent =
+                    data.queue?.dead_letter_tasks || 0;
+                document.getElementById('queue-starved').textContent =
+                    data.queue?.starved_ready_tasks || 0;
+                document.getElementById('queue-stale').textContent =
+                    data.queue?.stale_running_tasks || 0;
+                document.getElementById('queue-saturation').textContent =
+                    `L ${data.queue?.saturation_pct || 0}% / G ${data.queue?.global_saturation_pct || 0}% / W ${data.queue?.running_workers || 0} / lease ${data.queue?.lease_timeout_seconds || 0}s / starve ${data.queue?.starvation_threshold_seconds || 0}s / stall ${data.queue?.stall_threshold_seconds || 0}s / alert ${data.queue?.alert_channel || 'auto'} / escalation ${data.queue?.alert_escalation_channel || 'auto-secondary'} / escalate ${data.queue?.alert_escalate_after || 0}x / schedule retry ${data.queue?.schedule_alert_retrying_after || 0}x / schedule escalate ${data.queue?.schedule_alert_escalate_after || 0}x`;
+
+                const boundaryPolicy = data.boundary_policy || {};
+                const shellPolicy = boundaryPolicy.shell || {};
+                const containerTarget = shellPolicy.primary_container_target || {};
+                const hostPolicy = boundaryPolicy.web_hosts || {};
+                const secretPolicy = boundaryPolicy.secrets || {};
+                const boundaryMetrics = data.boundary_metrics || {};
+                const boundaryCounts = boundaryMetrics.boundary || {};
+                const secretCounts = boundaryMetrics.secrets || {};
+                document.getElementById('boundary-contract').textContent =
+                    boundaryPolicy.contract_version || '--';
+                const shellBackend = shellPolicy.backend_requested
+                    && shellPolicy.backend_requested !== shellPolicy.backend_selected
+                    ? `${shellPolicy.backend_requested}->${shellPolicy.backend_selected}`
+                    : (shellPolicy.backend_selected || shellPolicy.backend_requested || 'native');
+                const availableBackends = (shellPolicy.available_backends || []).join(',') || 'none';
+                const driftNote = containerTarget.drifted
+                    ? ` / drift ${containerTarget.lifecycle_state || 'unknown'}`
+                    : '';
+                document.getElementById('boundary-shell').textContent =
+                    `${shellPolicy.mode || 'unknown'} / backend ${shellBackend} / target ${(containerTarget.backend || 'docker')}:${containerTarget.status || 'unknown'} / runtime ${containerTarget.runtime_reachable ? 'on' : 'off'} / image ${containerTarget.image_present ? 'on' : 'off'} / available ${availableBackends} / confirm ${shellPolicy.confirm_dangerous ? 'on' : 'off'} / home ${shellPolicy.isolate_home ? 'iso' : 'shared'}`;
+                document.getElementById('boundary-shell').textContent += driftNote;
+                document.getElementById('boundary-hosts').textContent =
+                    `${hostPolicy.host_policy_enabled ? 'on' : 'off'} / allow ${hostPolicy.allowed_hosts_count || 0} / block ${hostPolicy.blocked_hosts_count || 0}`;
+                document.getElementById('boundary-secrets').textContent =
+                    `env ${secretPolicy.allow_environment_fallback ? 'on' : 'off'} / audit ${secretPolicy.audit_access ? 'on' : 'off'} / caps ${secretPolicy.web_search_capability_count || 0}`;
+                document.getElementById('boundary-events').textContent =
+                    `boundary ${boundaryCounts.allowed || 0}/${boundaryCounts.blocked || 0}/${boundaryCounts.total || 0} | secret ${secretCounts.granted || 0}/${secretCounts.blocked || 0}/${secretCounts.missing || 0}`;
+            } catch (e) {
+                document.getElementById('status-badge').textContent = 'offline';
+                document.getElementById('status-badge').className = 'status-badge status-offline';
+            }
+        }
+
+        async function fetchMemories() {
+            try {
+                const res = await fetch('/api/memory');
+                const data = await res.json();
+                const container = document.getElementById('memories-list');
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-secondary)">No memories saved yet</p>';
+                    return;
+                }
+
+                container.innerHTML = data.slice(0, 20).map(m => `
+                    <div class="memory-item">
+                        <div class="memory-content">${escapeHtml(m.content)}</div>
+                        <div class="memory-meta">
+                            <span class="badge badge-info">${m.category}</span>
+                            ${m.created_at}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch memories:', e);
+            }
+        }
+
+        async function fetchCronJobs() {
+            try {
+                const params = new URLSearchParams();
+                const healthFilter = document.getElementById('cron-health-filter')?.value || 'all';
+                const signalFilter = document.getElementById('cron-signal-filter')?.value || 'all';
+                if (healthFilter !== 'all') params.set('health', healthFilter);
+                if (signalFilter !== 'all') params.set('signal', signalFilter);
+                const url = params.toString() ? `/api/cron/groups?${params.toString()}` : '/api/cron/groups';
+                const res = await fetch(url);
+                const data = await res.json();
+                const container = document.getElementById('cron-list');
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-secondary)">No scheduled jobs for current filters</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(group => `
+                    <div style="margin-bottom: 14px;">
+                        <div class="memory-meta" style="margin-bottom: 8px;">
+                            <strong>${escapeHtml(group.target_label)}</strong>
+                            | jobs=${group.job_count}
+                            | enabled=${group.enabled_jobs}
+                            <button class="btn btn-primary btn-sm" style="margin-left: 8px;" onclick="bulkCronGroupAction(${JSON.stringify(group.group_key)}, 'pause', ${group.job_count})">
+                                Pause Visible
+                            </button>
+                            <button class="btn btn-primary btn-sm" style="margin-left: 8px;" onclick="bulkCronGroupAction(${JSON.stringify(group.group_key)}, 'resume', ${group.job_count})">
+                                Resume Visible
+                            </button>
+                            <button class="btn btn-danger btn-sm" style="margin-left: 8px;" onclick="bulkCronGroupAction(${JSON.stringify(group.group_key)}, 'remove', ${group.job_count})">
+                                Remove Visible
+                            </button>
+                        </div>
+                        ${group.jobs.map(job => `
+                            <div class="memory-item">
+                                <div class="memory-content">
+                                    <strong>${escapeHtml(job.name)}</strong>
+                                    <span class="badge ${job.enabled ? 'badge-success' : 'badge-warning'}">${job.enabled ? 'enabled' : 'disabled'}</span>
+                                    <span class="badge ${cronHealthBadgeClass(job.health)}">${escapeHtml(job.health || 'idle')}</span>
+                                    <button class="btn btn-primary btn-sm" style="margin-left: 8px;" onclick="toggleCronJob(${job.id}, ${job.enabled ? 'false' : 'true'})">
+                                        ${job.enabled ? 'Pause' : 'Resume'}
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="removeCronJob(${job.id})" style="margin-left: 8px;">Remove</button>
+                                </div>
+                                <div class="memory-meta">
+                                    schedule=${escapeHtml(job.schedule_text)}
+                                    | quiet=${escapeHtml(job.quiet_window)}
+                                    | last_run=${escapeHtml(job.last_run || '-')}
+                                </div>
+                                <div class="memory-meta" style="margin-top: 6px;">
+                                    health=${escapeHtml(job.health || 'idle')}
+                                    (${escapeHtml(job.health_reason || '-')})
+                                </div>
+                                <div class="memory-meta" style="margin-top: 6px;">
+                                    notify=${escapeHtml(job.last_notify_kind || '-')}
+                                    | exec=${escapeHtml(job.last_execution_status || 'never')}
+                                    @ ${escapeHtml(job.last_execution_updated_at || '-')}
+                                    | delivery_retry=${escapeHtml(job.last_delivery_retry_status || 'none')}
+                                    @ ${escapeHtml(job.last_delivery_retry_updated_at || '-')}
+                                </div>
+                                ${(job.signal_timeline || []).map(signal => `
+                                    <div class="memory-meta" style="margin-top: 6px;">
+                                        signal=${escapeHtml(signal.label || 'signal')}
+                                        | ${escapeHtml(signal.detail || '-')}
+                                        @ ${escapeHtml(signal.timestamp || '-')}
+                                    </div>
+                                `).join('')}
+                                <div style="font-size: 0.85rem; margin-top: 6px;">
+                                    ${escapeHtml(job.message || '')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch cron jobs:', e);
+            }
+        }
+
+        async function fetchSkills() {
+            try {
+                const res = await fetch('/api/skills');
+                const data = await res.json();
+                const container = document.getElementById('skills-list');
+
+                container.innerHTML = data.map(skill => `
+                    <div class="stat-row">
+                        <span><strong>${skill.name}</strong></span>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">${skill.description.slice(0, 50)}...</span>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch skills:', e);
+            }
+        }
+
+        function taskBadgeClass(status) {
+            if (status === 'succeeded') return 'badge-success';
+            if (status === 'failed' || status === 'cancelled') return 'badge-error';
+            if (status === 'running') return 'badge-warning';
+            return 'badge-info';
+        }
+
+        function cronHealthBadgeClass(health) {
+            if (health === 'healthy') return 'badge-success';
+            if (health === 'attention') return 'badge-error';
+            if (health === 'retrying') return 'badge-warning';
+            return 'badge-info';
+        }
+
+        async function fetchTasks() {
+            try {
+                const res = await fetch('/api/tasks?limit=10');
+                const data = await res.json();
+                const container = document.getElementById('tasks-list');
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-secondary)">No persisted tasks yet</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(task => `
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <strong>${escapeHtml(task.task_id)}</strong>
+                            <span class="badge ${taskBadgeClass(task.status)}">${task.status}</span>
+                            ${(task.status === 'pending' || task.status === 'running')
+                                ? `<button class="btn btn-danger btn-sm" style="margin-left: 8px;" onclick="cancelTask('${escapeHtml(task.task_id)}')">Cancel</button>`
+                                : ''}
+                            ${(task.status === 'failed' || task.status === 'cancelled')
+                                ? `<button class="btn btn-primary btn-sm" style="margin-left: 8px;" onclick="requeueTask('${escapeHtml(task.task_id)}')">Requeue</button>`
+                                : ''}
+                        </div>
+                        <div class="memory-meta">
+                            prio=${task.priority} |
+                            timeout=${task.timeout_seconds}s |
+                            backoff=${task.retry_backoff_seconds}s |
+                            rate_limit_key=${escapeHtml(task.rate_limit_key || '-')} |
+                            rate_limit=${task.rate_limit_max_claims || 0}/${task.rate_limit_window_seconds || 0} |
+                            attempts=${task.attempt_count}/${task.max_attempts} |
+                            dead_letter=${task.dead_lettered ? 1 : 0} |
+                            cancel_requested=${task.cancel_requested ? 1 : 0} |
+                            owner=${escapeHtml(task.claimed_by || '-')} |
+                            heartbeat=${escapeHtml(task.last_heartbeat_at || '-')}
+                        </div>
+                        <div style="font-size: 0.85rem; margin-top: 6px;">
+                            ${escapeHtml(task.description || '')}
+                        </div>
+                        <div class="memory-meta" style="margin-top: 6px;">
+                            source=${escapeHtml(task.source || '-')}
+                            | retry_at=${escapeHtml(task.next_attempt_at || '-')}
+                            | last_claimed_at=${escapeHtml(task.last_claimed_at || '-')}
+                            ${task.last_error ? `| error=${escapeHtml(task.last_error)}` : ''}
+                            ${task.dead_letter_reason ? `| dlq_reason=${escapeHtml(task.dead_letter_reason)}` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch tasks:', e);
+            }
+        }
+
+        async function cancelTask(taskId) {
+            if (!confirm(`Cancel task ${taskId}?`)) return;
+
+            try {
+                const res = await fetch(`/api/tasks/${taskId}/cancel`, {method: 'POST'});
+                if (!res.ok) {
+                    const payload = await res.json();
+                    throw new Error(payload.error || 'cancel failed');
+                }
+                fetchTasks();
+            } catch (e) {
+                alert(`Failed to cancel task: ${e.message}`);
+            }
+        }
+
+        async function requeueTask(taskId) {
+            if (!confirm(`Requeue task ${taskId}?`)) return;
+
+            try {
+                const res = await fetch(`/api/tasks/${taskId}/requeue`, {method: 'POST'});
+                if (!res.ok) {
+                    const payload = await res.json();
+                    throw new Error(payload.error || 'requeue failed');
+                }
+                fetchTasks();
+                fetchStatus();
+            } catch (e) {
+                alert(`Failed to requeue task: ${e.message}`);
+            }
+        }
+
+        async function fetchAuditLog() {
+            try {
+                const res = await fetch('/api/audit?limit=30');
+                const data = await res.json();
+                const container = document.getElementById('audit-list');
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-secondary)">No activity yet</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(entry => `
+                    <div class="log-entry ${entry.status}">
+                        <div class="log-time">${entry.timestamp}</div>
+                        <div>
+                            <span class="badge badge-${entry.status === 'success' ? 'success' : entry.status === 'error' ? 'error' : 'warning'}">${entry.action_type}</span>
+                            ${entry.tool_name ? `<strong>${entry.tool_name}</strong>` : ''}
+                        </div>
+                        ${entry.input_summary ? `<div style="font-size: 0.8rem; margin-top: 4px;">${escapeHtml(entry.input_summary.slice(0, 100))}...</div>` : ''}
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch audit log:', e);
+            }
+        }
+
+        async function fetchWorkflowRecommendations() {
+            try {
+                const res = await fetch('/api/workflow-recommendations?days=7&limit=5');
+                const data = await res.json();
+                const container = document.getElementById('workflow-recommendations');
+
+                if (data.length === 0) {
+                    container.innerHTML =
+                        '<p style="color: var(--text-secondary)">No workflow recommendations yet</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(item => `
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <strong>${escapeHtml(item.workflow_name)}</strong>
+                            <span class="badge ${cronHealthBadgeClass(item.recommendation_status)}">
+                                ${escapeHtml(item.recommendation_status)}
+                            </span>
+                        </div>
+                        <div class="memory-meta">
+                            runs=${item.run_count}
+                            | good/review/poor=${item.good_runs}/${item.review_runs}/${item.poor_runs}
+                            | feedback=${item.positive_feedback}/${item.neutral_feedback}/${item.negative_feedback}
+                            | quality=${item.avg_quality_score}
+                            | efficiency=${item.avg_efficiency_score}
+                            | tokens=${item.avg_tokens}
+                            | latency=${item.avg_execution_ms}ms
+                        </div>
+                        <div style="font-size: 0.85rem; margin-top: 6px;">
+                            ${escapeHtml((item.top_attention_reason || (item.attention_reasons || [])[0] || '--'))}
+                        </div>
+                        <div style="font-size: 0.85rem; margin-top: 6px;">
+                            ${escapeHtml((item.recommendations || [])[0] || 'Keep current workflow.')}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to fetch workflow recommendations:', e);
+            }
+        }
+
+        async function addCronJob() {
+            const name = document.getElementById('cron-name').value;
+            const message = document.getElementById('cron-message').value;
+            const interval = parseInt(document.getElementById('cron-interval').value);
+
+            if (!name || !message || !interval) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            try {
+                await fetch('/api/cron', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name, message, interval_seconds: interval})
+                });
+
+                document.getElementById('cron-name').value = '';
+                document.getElementById('cron-message').value = '';
+                document.getElementById('cron-interval').value = '';
+
+                fetchCronJobs();
+                fetchStatus();
+            } catch (e) {
+                alert('Failed to add job');
+            }
+        }
+
+        function formatChannelStatus(channel) {
+            const status = channel.status || 'disabled';
+            const mode = channel.delivery_mode || 'unknown';
+            const auth = channel.auth_mode || 'open';
+            const desired = channel.desired_state || 'stopped';
+            const drift = channel.drift_status || 'unknown';
+            const reconcile = channel.reconcile_status || 'unknown';
+            const diagnostic = channel.diagnostic_health || 'unknown';
+            const summary = channel.diagnostic_summary || '';
+            if (summary && diagnostic === 'attention') {
+                return `${status} / ${mode} / ${auth} / desired ${desired} `
+                    + `/ ${drift} / ${reconcile} / diag ${diagnostic}: ${summary}`;
+            }
+            return `${status} / ${mode} / ${auth} / desired ${desired} `
+                + `/ ${drift} / ${reconcile} / diag ${diagnostic}`;
+        }
+
+        function renderChannelStatusRows(channels) {
+            const entries = Object.entries(channels || {});
+            if (entries.length === 0) {
+                return '<p style="color: var(--text-secondary)">No channel contract available</p>';
+            }
+            return entries.map(([channelName, channel]) => {
+                const label = channel.label || channelName;
+                return `
+                    <div class="stat-row">
+                        <span>${escapeHtml(label)}</span>
+                        <span>${escapeHtml(formatChannelStatus(channel))}</span>
+                    </div>
+                    <div style="margin-bottom: 10px; text-align: right;">
+                        ${renderChannelActions(channelName, channel)}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderChannelActions(channelName, channel) {
+            const actions = Array.isArray(channel.operator_actions)
+                ? channel.operator_actions
+                : [];
+            if (actions.length === 0) {
+                return (
+                    '<span style="color: var(--text-secondary); font-size: 0.85rem;">'
+                    + 'No operator actions</span>'
+                );
+            }
+            return actions.map(action => {
+                const kind = action === 'stop' ? 'btn-danger' : 'btn-primary';
+                const label = action.charAt(0).toUpperCase() + action.slice(1);
+                const args = `${JSON.stringify(channelName)}, ${JSON.stringify(action)}`;
+                return (
+                    `<button class="btn ${kind} btn-sm" style="margin-left: 8px;" `
+                    + `onclick="runChannelAction(${args})">${label}</button>`
+                );
+            }).join('');
+        }
+
+        async function runChannelAction(channelName, action) {
+            if (!confirm(`${action} ${channelName} channel?`)) return;
+
+            try {
+                const res = await fetch(`/api/channels/${channelName}/action`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({action})
+                });
+                if (!res.ok) {
+                    const payload = await res.json();
+                    throw new Error(payload.error || 'channel action failed');
+                }
+                fetchStatus();
+            } catch (e) {
+                alert(`Failed to ${action} ${channelName}: ${e.message}`);
+            }
+        }
+
+        async function removeCronJob(id) {
+            if (!confirm('Remove this job?')) return;
+
+            try {
+                await fetch(`/api/cron/${id}`, {method: 'DELETE'});
+                fetchCronJobs();
+                fetchStatus();
+            } catch (e) {
+                alert('Failed to remove job');
+            }
+        }
+
+        async function bulkCronGroupAction(groupKey, action, count) {
+            const verb = action === 'remove' ? 'remove' : action;
+            const suffix = count === 1 ? '' : 's';
+            if (!confirm(`${verb} ${count} visible job${suffix} in this group?`)) return;
+
+            try {
+                const health = document.getElementById('cron-health-filter')?.value || 'all';
+                const signal = document.getElementById('cron-signal-filter')?.value || 'all';
+                const res = await fetch('/api/cron/groups/action', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        group_key: groupKey,
+                        action,
+                        health,
+                        signal,
+                    })
+                });
+                if (!res.ok) {
+                    const payload = await res.json();
+                    throw new Error(payload.error || 'group action failed');
+                }
+                fetchCronJobs();
+                fetchStatus();
+            } catch (e) {
+                alert(`Failed to ${verb} visible jobs: ${e.message}`);
+            }
+        }
+
+        async function toggleCronJob(id, enabled) {
+            const action = enabled ? 'resume' : 'pause';
+            if (!confirm(`${action} this job?`)) return;
+
+            try {
+                const res = await fetch(`/api/cron/${id}/toggle`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({enabled})
+                });
+                if (!res.ok) {
+                    const payload = await res.json();
+                    throw new Error(payload.error || 'toggle failed');
+                }
+                fetchCronJobs();
+            } catch (e) {
+                alert(`Failed to ${action} job: ${e.message}`);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initial load
+        fetchStatus();
+        fetchMemories();
+        fetchCronJobs();
+        fetchSkills();
+        fetchAuditLog();
+        fetchTasks();
+        fetchWorkflowRecommendations();
+
+        // Auto-refresh every 5 seconds
+        setInterval(() => {
+            fetchStatus();
+            fetchAuditLog();
+            fetchTasks();
+        }, 5000);
+
+        // Refresh other data less frequently
+        setInterval(() => {
+            fetchMemories();
+            fetchCronJobs();
+            fetchWorkflowRecommendations();
+        }, 30000);
+    </script>
+</body>
+</html>

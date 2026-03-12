@@ -1,0 +1,50 @@
+[project]
+name = "nanoclaw-ai"
+version = "0.0.1"
+description = "Easy install, 24/7. Ultra-lightweight secure AI assistant inspired by OpenClaw."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [{name = "nanoClaw Team"}]
+keywords = ["ai", "agent", "assistant", "telegram", "automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "aiohttp>=3.9",
+    "python-telegram-bot>=20.0",
+    "click>=8.0",
+    "pydantic>=2.0",
+    "html2text>=2024.2",
+    "croniter>=1.3",
+]
+
+[project.optional-dependencies]
+semantic = ["chromadb>=0.4"]
+dev = ["pytest", "pytest-asyncio"]
+
+[project.scripts]
+nanoclaw = "nanoclaw.cli.main:cli"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nanoclaw*"]
+
+[tool.setuptools.package-data]
+nanoclaw = [
+    "core/*.json",
+    "skills/*.plugin.json",
+    "channels/*.plugin.json",
+    "tools/*.plugin.json",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

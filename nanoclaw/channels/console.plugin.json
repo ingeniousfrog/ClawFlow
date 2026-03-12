@@ -1,0 +1,35 @@
+{
+  "name": "console_channel",
+  "kind": "channel",
+  "module": "console",
+  "provides": ["console"],
+  "summary": "Local console channel for attached interactive sessions and fallback routing.",
+  "entryPoints": ["local console runtime"],
+  "dependencies": ["click"],
+  "metadata": {
+    "contract": {
+      "label": "Console",
+      "deliveryMode": "interactive",
+      "managed": false,
+      "supportsIncoming": true,
+      "supportsProactive": true,
+      "supportsTargetedProactive": false,
+      "supportsConfirmation": true
+    },
+    "routing": {
+      "targetMode": "runtime_only",
+      "authMode": "local",
+      "authDetail": "local console runtime only",
+      "targetMissingReason": "console runtime inactive",
+      "targetReadyDetail": "console runtime active",
+      "priorities": {
+        "default_proactive": 3,
+        "heartbeat": 3,
+        "runtime_alert": 3,
+        "runtime_alert_escalation": 3
+      }
+    }
+  },
+  "riskLevel": "low",
+  "enabled": true
+}

@@ -1,0 +1,17 @@
+{
+  "name": "searxng_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["searxng"],
+  "summary": "Self-hosted SearXNG search provider with planner-aware category and time-range hints.",
+  "entryPoints": ["tools.webSearch.provider=searxng"],
+  "dependencies": ["tools.webSearch.providerConfigs.searxng.baseUrl"],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_searxng_provider",
+      "autoHandlerPath": "nanoclaw.tools.search_providers:_searxng_only_provider"
+    }
+  },
+  "riskLevel": "medium",
+  "enabled": true
+}

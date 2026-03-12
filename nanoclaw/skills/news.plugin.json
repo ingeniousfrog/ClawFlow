@@ -1,0 +1,12 @@
+{
+  "name": "get_news",
+  "kind": "skill",
+  "module": "news",
+  "toolNames": ["get_news"],
+  "summary": "Search recent news for a topic using web search.",
+  "entryPoints": ["news about semiconductors", "latest on topic X"],
+  "triggers": ["news", "headlines", "latest"],
+  "dependencies": ["web_search"],
+  "riskLevel": "low",
+  "enabled": true
+}

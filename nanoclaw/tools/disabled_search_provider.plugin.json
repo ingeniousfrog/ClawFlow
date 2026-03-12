@@ -1,0 +1,17 @@
+{
+  "name": "disabled_search_provider",
+  "kind": "search_provider",
+  "module": "search_providers",
+  "provides": ["disabled"],
+  "summary": "Explicit disabled search-provider state for no-web or audit-only setups.",
+  "entryPoints": ["tools.webSearch.provider=disabled"],
+  "dependencies": [],
+  "metadata": {
+    "runtime": {
+      "handlerPath": "nanoclaw.tools.search_providers:_disabled_provider",
+      "aliases": ["off", "none"]
+    }
+  },
+  "riskLevel": "low",
+  "enabled": true
+}

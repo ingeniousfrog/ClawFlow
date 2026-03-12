@@ -1,0 +1,43 @@
+{
+  "name": "telegram_channel",
+  "kind": "channel",
+  "module": "telegram",
+  "provides": ["telegram"],
+  "summary": "Telegram polling channel for incoming chat and proactive delivery.",
+  "entryPoints": ["channels.telegram.enabled=true"],
+  "dependencies": ["python-telegram-bot"],
+  "metadata": {
+    "contract": {
+      "label": "Telegram",
+      "deliveryMode": "polling",
+      "managed": true,
+      "supportsIncoming": true,
+      "supportsProactive": true,
+      "supportsTargetedProactive": false,
+      "supportsConfirmation": true
+    },
+    "runtime": {
+      "configName": "telegram",
+      "factoryPath": "nanoclaw.channels.telegram:TelegramChannel",
+      "requiredFields": ["token"],
+      "missingReason": "token missing",
+      "readyReason": "token configured",
+      "startingDetail": "starting polling runtime",
+      "runningDetail": "polling runtime active"
+    },
+    "routing": {
+      "targetMode": "broadcast_allowlist",
+      "targetField": "allow_from",
+      "targetMissingReason": "no proactive recipients in allowFrom",
+      "targetReadyDetail": "broadcast to {count} Telegram recipient(s)",
+      "priorities": {
+        "default_proactive": 1,
+        "heartbeat": 2,
+        "runtime_alert": 1,
+        "runtime_alert_escalation": 1
+      }
+    }
+  },
+  "riskLevel": "medium",
+  "enabled": true
+}

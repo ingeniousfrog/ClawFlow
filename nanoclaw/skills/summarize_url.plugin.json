@@ -1,0 +1,12 @@
+{
+  "name": "summarize_url",
+  "kind": "skill",
+  "module": "summarize_url",
+  "toolNames": ["summarize_url"],
+  "summary": "Fetch a URL and summarize its content.",
+  "entryPoints": ["summarize this URL", "TLDR this page"],
+  "triggers": ["summarize", "summary", "tldr"],
+  "dependencies": ["web_fetch", "llm"],
+  "riskLevel": "medium",
+  "enabled": true
+}

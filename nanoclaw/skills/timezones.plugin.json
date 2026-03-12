@@ -1,0 +1,12 @@
+{
+  "name": "get_time",
+  "kind": "skill",
+  "module": "timezones",
+  "toolNames": ["get_time"],
+  "summary": "Get the current time for a supported city.",
+  "entryPoints": ["time in Tokyo", "current time in London"],
+  "triggers": ["time in", "timezone", "what time"],
+  "dependencies": ["zoneinfo"],
+  "riskLevel": "low",
+  "enabled": true
+}
