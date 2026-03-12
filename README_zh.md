@@ -1,8 +1,8 @@
-# nanoClaw
+# ClawFlow
 
 [English](README.md)
 
-nanoClaw 是一个面向本地和自托管场景的 Python 个人 AI assistant runtime。
+ClawFlow 是一个面向本地和自托管场景的 Python 个人 AI assistant runtime。
 
 这个仓库**基于 NanoClaw 项目改写而来**，以 `nanoclaw` 为基线，
 随后在运行时、工作流、通道平台、运维面和扩展模型上做了大量增强。

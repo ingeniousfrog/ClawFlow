@@ -83,6 +83,34 @@ Minimal example:
 | `allowFrom` | optional | sender allowlist |
 | `defaultChatId` | optional | default target for proactive pushes |
 
+## Minimal Feishu Bot Setup
+
+Use this as the shortest end-to-end setup path.
+
+1. Create a self-built app in Feishu Open Platform.
+2. Enable the bot capability for that app.
+3. Add the message and event subscription permissions your workspace requires.
+4. Configure event subscription and point it to your public callback URL.
+5. Set the verification token in Feishu and copy the same value to
+   `channels.feishu.verifyToken`.
+6. Fill `appId`, `appSecret`, `verifyToken`, `webhookHost`, `webhookPort`, and
+   `webhookPath` into `~/.nanoclaw/config.json`.
+7. Expose the local webhook through a public HTTPS endpoint, then add the bot to
+   the target chat or group.
+8. If you want default proactive delivery, capture a `chat_id` from an incoming
+   event and set it as `defaultChatId`.
+9. If you want to restrict who can talk to the bot, add sender ids to
+   `allowFrom`.
+
+### Common Pitfalls
+
+- Keep callback encryption disabled. The current implementation rejects encrypted
+  callbacks.
+- The Feishu channel only accepts inbound text messages today. Images, files,
+  and other media are ignored.
+- `defaultChatId` only affects default proactive delivery. Chat-scoped
+  `/schedule` jobs still reply to the chat where the command was created.
+
 ## Webhook Alignment
 
 When exposing the local webhook to Feishu, these values must match exactly.

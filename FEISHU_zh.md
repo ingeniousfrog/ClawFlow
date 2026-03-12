@@ -81,6 +81,31 @@
 | `allowFrom` | 可选 | sender 白名单 |
 | `defaultChatId` | 可选 | 默认主动推送目标 |
 
+## 飞书机器人最小安装方案
+
+如果你只想走最短路径，把机器人跑起来，按下面这几步做就够了。
+
+1. 在飞书开放平台创建一个企业自建应用。
+2. 给这个应用开启机器人能力。
+3. 补齐消息接收和事件订阅相关权限。
+4. 在飞书后台配置事件订阅，并把回调地址指向你的公网 HTTPS URL。
+5. 在飞书后台设置 verification token，并把同一个值填到
+   `channels.feishu.verifyToken`。
+6. 在 `~/.nanoclaw/config.json` 里填好 `appId`、`appSecret`、
+   `verifyToken`、`webhookHost`、`webhookPort`、`webhookPath`。
+7. 把本地 webhook 暴露到公网后，把机器人加入目标群聊或会话。
+8. 如果你希望它有默认主动推送目标，先让目标会话给机器人发一条消息，
+   再从事件 payload 里取到 `chat_id`，填到 `defaultChatId`。
+9. 如果你希望限制谁能和机器人交互，再把对应 sender id 配到
+   `allowFrom`。
+
+### 常见坑
+
+- 飞书侧必须关闭 callback encryption。当前实现不支持加密回调。
+- 当前只接收文本消息。图片、文件、语音等非文本消息会被忽略。
+- `defaultChatId` 只影响默认 proactive 推送，不影响 chat-scoped 的
+  `/schedule` 回投行为。
+
 ## Webhook 对齐要求
 
 把本地 webhook 暴露给飞书时，这几个值必须完全对齐：

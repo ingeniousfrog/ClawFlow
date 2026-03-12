@@ -1,8 +1,8 @@
-# nanoClaw
+# ClawFlow
 
 [中文说明](README_zh.md)
 
-nanoClaw is a Python-based personal AI assistant runtime for local and
+ClawFlow is a Python-based personal AI assistant runtime for local and
 self-hosted use.
 
 This repository is **based on the NanoClaw project** and the
